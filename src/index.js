@@ -8,7 +8,6 @@ import rootReducer from '../src/components/store/reducers/rootReducer'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
 
-import { getFirestore } from 'redux-firestore';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import { reduxFirestore, getFirestore } from 'redux-firestore'
 

@@ -1,9 +1,20 @@
 import { get, post } from '../../../config/apiRequest'
 
 
-export const createProject = () => {
+export const createProject = (project) => {
     return (dispatch, getState, { getFirebase, getFirestore }) => {
-        dispatch({ type: 'CREATE PROJECT', project })
+        const firestore = getFirestore();
+        firestore.collection('project').add({
+            ...project,
+            title: "Second project title",
+            email: "My react email",
+            createdAt: new Date()
+        }).then(() => {
+            dispatch({ type: 'CREATE_PROJECT', project })
+        }).catch((err) => {
+            dispatch({ type: 'CREATE_PROJECT_ERROR', err })
+        })
+
     }
 }
 

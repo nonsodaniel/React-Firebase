@@ -3,6 +3,9 @@ import { NavLink, Link } from 'react-router-dom'
 import image from '../style/images/avatar.jpg'
 // import { withRouter } from 'react-router-dom';
 import Moment from "react-moment";
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux'
+import { connect } from 'react-redux';
 
 
 class Dashboard extends Component {
@@ -595,6 +598,18 @@ const buttonStyle = {
 }
 
 
-export default Dashboard
+const mapStateToProps = (state) => {
+  console.log("Firestore state", state)
+  return {
+    projects: state.project.projects
+  }
+}
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'project' }
+  ])
+)(Dashboard)
 
 

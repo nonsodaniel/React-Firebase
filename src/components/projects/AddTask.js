@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import { Preloader, Placeholder } from 'react-preloading-screen';
 // import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { createTask } from '../store/actions/projectActions'
+import { createProject } from '../store/actions/projectActions'
 import swal from 'sweetalert';
 import '../layouts/swal.css'
 
@@ -23,19 +23,8 @@ class AddEmployees extends Component {
         let { title, description, issuer, receiver, eta } = this.state;
         let obj = { title, description, issuer, receiver, eta }
         console.log("Obj", obj)
-        await this.props.createTask(obj);
-        let { status, message } = this.props
-        if (status === 201) {
-            setTimeout(() => {
-                swal("Response", "Task Created Successfully", "success");
-                this.props.history.push('/view-tasks')
-            }, 2500)
-        } else {
-            setTimeout(() => {
-                swal("Response", "Failed to create task! Please check and try again.", "error");
-                this.setState({ isLoading: false });
-            }, 2500)
-        }
+        await this.props.createProject(obj);
+
     }
     render() {
 
@@ -113,21 +102,21 @@ class AddEmployees extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log("Map props", state)
-    const { projectMessage, projectData, status } = state.project;
-    return {
-        projectMessage,
-        projectData,
-        status
-    }
-}
+// const mapStateToProps = (state) => {
+//     //     console.log("Map props", state)
+//     //     const { projectMessage, projectData, status } = state.project;
+//     //     return {
+//     //         projectMessage,
+//     //         projectData,
+//     //         status
+//     //     }
+//     // }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createTask: (task) => {
+        createProject: (task) => {
             return new Promise((resolve) => {
-                dispatch(createTask(task, (res) => {
+                dispatch(createProject(task, (res) => {
                     resolve(res);
                 }))
             })
@@ -137,4 +126,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddEmployees)
+export default connect(null, mapDispatchToProps)(AddEmployees)

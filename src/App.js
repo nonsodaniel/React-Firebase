@@ -35,7 +35,7 @@ import Resignation from './components/employees/Resignation';
 
 class App extends Component {
   componentDidMount() {
-    this.handleClearConsole()
+    // this.handleClearConsole()
   }
   handleClearConsole = () => {
     setInterval(() => {
