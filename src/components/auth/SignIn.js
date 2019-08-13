@@ -29,7 +29,16 @@ class SignIn extends Component {
         let obj = { email, password };
         console.log(obj)
         await this.props.signIn(obj);
-        console.log(this.props)
+        console.log("My preps", this.props)
+        const { authStatus, authMessage, authCode } = this.props;
+        if (authCode === 200) {
+            swal("Response", authMessage, "success");
+            this.setState({ isLoading: false });
+            this.props.history.push("/");
+        } else {
+            this.setState({ isLoading: false });
+            return swal("Response", authMessage, authStatus);
+        }
     }
     handleResetPassword = async (e) => {
         this.setState({ isResetLoading: true })
@@ -84,14 +93,15 @@ class SignIn extends Component {
     }
 }
 
-// const mapStateToProps = (state) => {
-//     console.log("down state", state)
-//     return {
-//         authMessage,
-//         loginData,
-//         status
-//     }
-// }
+const mapStateToProps = (state) => {
+    console.log("SignIn state", state)
+    const { authStatus, authMessage, authCode } = state.auth;
+    return {
+        authStatus,
+        authMessage,
+        authCode
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -99,4 +109,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

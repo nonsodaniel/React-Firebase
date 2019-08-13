@@ -117,13 +117,6 @@ class SignedInLinks extends Component {
     let taskLink = state.isTask ? <TaskDropdown /> : null;
     return (
       <ul className="nav flex-column">
-        {/* <li className="nav-item" onClick={this.clickEmployer}>
-          <Link to="" className="nav-link">
-            <i className="material-icons">event_note</i>
-            <span> Employers</span>
-          </Link>
-        </li>
-        {employerLink} */}
 
         <li className="nav-item" onClick={this.clickEmployee}>
           <Link to="" className="nav-link">
@@ -148,31 +141,6 @@ class SignedInLinks extends Component {
           </Link>
         </li>
         {taskLink}
-        {/* 
-        <li className="nav-item" onClick={this.clickNews}>
-          <Link to="" className="nav-link">
-            <i className="material-icons">event_note</i>
-            <span> News</span>
-          </Link>
-        </li>
-        {newsLink}
-
-        <li className="nav-item" onClick={this.clickCategory}>
-          <Link to="" className="nav-link">
-            <i className="material-icons">storage</i>
-            <span>Category</span>
-          </Link>
-        </li>
-        {catLink} */}
-        {/* 
-        <li className="nav-item" onClick={this.clickRole}>
-          <Link to="" className="nav-link">
-            <i className="material-icons">storage</i>
-            <span>Role</span>
-          </Link>
-
-        </li>
-        {roleLink} */}
 
         <li className="nav-item" onClick={this.handleLogOut}>
           <Link to="" className="nav-link">
