@@ -7,24 +7,22 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from '../src/components/store/reducers/rootReducer'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk';
-import { getNews } from './components/store/actions/projectActions'
-import { getCategory, getItems } from './components/store/actions/itemActions'
-// import {reduxFirestore, getFirestore} from 'redux-firestore'
-// import {reactReduxFirebase, getFirebase} from 'react-redux-firebase'
-// import fbConfig from './config/fbConfig'
+
+import { getFirestore } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
+import { reduxFirestore, getFirestore } from 'redux-firestore'
+
+import fbConfig from './config/fbConfig'
 
 const store = createStore(rootReducer,
+  //store enhancers
   compose(
-    applyMiddleware(thunk)
+    applyMiddleware(thunk.withExtraArgument({ getFirestore, getFirebase })),
+    reduxFirestore(fbConfig), reactReduxFirebase(fbConfig)
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 
 )
-
-store.dispatch(getNews())
-store.dispatch(getCategory())
-store.dispatch(getItems())
-store.dispatch(getCategory())
 ReactDOM.render(
   <Provider store={store}>
     <App />

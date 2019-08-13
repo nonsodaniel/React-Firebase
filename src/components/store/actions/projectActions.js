@@ -1,6 +1,12 @@
 import { get, post } from '../../../config/apiRequest'
 
 
+export const createProject = () => {
+    return (dispatch, getState, { getFirebase, getFirestore }) => {
+        dispatch({ type: 'CREATE PROJECT', project })
+    }
+}
+
 export const createNews = (credentials, cb) => {
     return (dispatch, getState) => {
         post(`/news`, credentials).then((response) => {
