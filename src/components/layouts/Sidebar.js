@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import Logo from '../../components/style/images/logo-acada-black.svg';
 import SignedInLinks from '../auth/links/SignedInLinks';
 // import SignedOutLinks from '../auth/links/SignedOutLinks';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 class Sidebar extends Component {
   state = {
@@ -98,4 +99,11 @@ class Sidebar extends Component {
   }
 }
 
-export default withRouter(Sidebar);
+const mapStateToProps = (state) => {
+  console.log("firebase state", state);
+  return {
+
+  }
+}
+
+export default connect(mapStateToProps)(Sidebar);

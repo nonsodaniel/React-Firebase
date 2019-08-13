@@ -1,5 +1,19 @@
 import { post, get } from '../../../config/apiRequest'
 
+
+export const signIn = (credentials) => {
+    return (dispatch, getState, { getFirebase }) => {
+        const firebase = getFirebase();
+        firebase.auth().signInWithEmailAndPassword(
+            credentials.email,
+            credentials.password
+        ).then((response) => {
+            dispatch({ type: 'LOGIN_SUCCESS', response })
+        }).catch(err => dispatch({ type: 'LOGIN_ERROR', err }))
+
+    }
+}
+
 export const getAdminProfile = (cb) => {
     return (dispatch, getState) => {
         get(`/admin`).then((response) => {
@@ -16,24 +30,6 @@ export const getAdminProfile = (cb) => {
     }
 }
 
-export const signIn = (credentials, cb) => {
-    return (dispatch, getState) => {
-        post(`/admin/login `, credentials).then((response) => {
-            // console.log("SignIn reponse ()=>", response);
-            let { data, message, status } = response
-            console.log(data, message, status)
-            if (status === 200) {
-                dispatch({ type: "LOGIN_SUCCESS", response });
-                if (typeof cb === "function") cb({ type: "LOGIN_SUCCESS", response });
-                console.log("goo local", data)
-                localStorage.setItem('admin', JSON.stringify(data));
-            } else {
-                dispatch({ type: "LOGIN_ERROR", response });
-                if (typeof cb === "function") cb();
-            }
-        })
-    }
-}
 
 
 export const signUp = (credentials, cb) => {

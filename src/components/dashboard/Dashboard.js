@@ -598,8 +598,11 @@ const buttonStyle = {
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, owns) => {
   console.log("Firestore state", state)
+  const id = owns.match.params.id;
+  const projects = state.firestore.data.projects;
+  const project = projects ? projects[id] : null;
   return {
     projects: state.project.projects
   }

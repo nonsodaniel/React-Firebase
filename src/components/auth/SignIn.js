@@ -1,6 +1,4 @@
-import React, { Component } from 'react'
-// import { Preloader, Placeholder } from 'react-preloading-screen';
-// import { Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { signIn } from '../store/actions/authActions'
 import { Link } from 'react-router-dom';
@@ -8,7 +6,8 @@ import swal from 'sweetalert'
 import '../style/signIn.css';
 import ForgotPassword from './ForgotPassword'
 import '../style/buttons.css'
-// import Editor from "nib-core";
+
+
 
 
 class SignIn extends Component {
@@ -18,7 +17,7 @@ class SignIn extends Component {
 
     }
 
-    state = { username: "", password: "", isLoading: false, isResetLoading: false }
+    state = { email: "", password: "", isLoading: false, isResetLoading: false }
     handleChange = (e) => {
         this.setState({ [e.target.id]: e.target.value });
         // console.log(this.state)
@@ -26,20 +25,11 @@ class SignIn extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         this.setState({ isLoading: true })
-        let { username, password } = this.state;
-        let obj = { username, password };
+        let { email, password } = this.state;
+        let obj = { email, password };
+        console.log(obj)
         await this.props.signIn(obj);
         console.log(this.props)
-        let { data, authMessage, status } = this.props
-        console.log("Halim", data, authMessage, status)
-        if (status === 200) {
-            this.setState({ isLoading: false })
-            swal("Response", "Login Successful...", "success");
-            this.props.history.push("/");
-        } else {
-            this.setState({ isLoading: false })
-            return swal("Response", "Login failed...", "error")
-        }
     }
     handleResetPassword = async (e) => {
         this.setState({ isResetLoading: true })
@@ -59,19 +49,11 @@ class SignIn extends Component {
                 <div className="container" style={{ background: "white", height: "auto" }}><br /><br />
                     <p className="" style={{ textAlign: "center", fontSize: "25px" }}>Login to your Account </p><br /><br />
 
-                    {/* <div className="d-flex justify-content-center" style={{ height: "20px", margin: "0px 0 21px" }}>
-                        <div className="switch_box" style={{ height: "20px", marginBottom: "80px" }}>
-                            <span>Admin</span>  <input type="checkbox" className="switch_1" style={{ marginBottom: "51px", height: "30px" }} />   <span>Employee</span>
-                        </div>
-                    </div> */}
-
-
-
                     <form className="form-group" onSubmit={this.handleSubmit}>
                         <div className="row">
-                            <div className="col-md-2">Username: </div>
+                            <div className="col-md-2">email: </div>
                             <div className="col-md-8">
-                                <input type="text" className="form-control" id="username" placeholder="Username" onChange={this.handleChange} required />
+                                <input type="text" className="form-control" id="email" placeholder="email" onChange={this.handleChange} required />
                             </div>
                         </div><br /><br />
                         <div className="row">
@@ -102,27 +84,19 @@ class SignIn extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log("down state", state)
-    // this.setState({ propStatus: state })
-    const { authMessage, loginData, status } = state.auth;
-    return {
-        authMessage,
-        loginData,
-        status
-    }
-}
+// const mapStateToProps = (state) => {
+//     console.log("down state", state)
+//     return {
+//         authMessage,
+//         loginData,
+//         status
+//     }
+// }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        signIn: (admin) => {
-            return new Promise((resolve) => {
-                dispatch(signIn(admin, function (res) {
-                    resolve(res);
-                }))
-            })
-        }
+        signIn: (admin) => dispatch(signIn(admin))
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+export default connect(null, mapDispatchToProps)(SignIn)

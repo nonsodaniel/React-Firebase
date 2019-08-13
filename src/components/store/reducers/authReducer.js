@@ -1,70 +1,28 @@
 const initState = {
-    status: null,
+    authStatus: null,
     authMessage: null,
-    registerData: null,
-    loginData: null,
-    adminProfile: null,
-    adminProfileMessage: null,
-    adminProfileStatus: null,
+    authCode: null
 }
 
 export const authReducer = (state = initState, action) => {
     switch (action.type) {
 
-        case 'FETCH_ADMIN_SUCCESS':
-            return {
-                ...state,
-                adminProfile: action.response.data,
-                adminProfileMessage: action.response.message,
-                adminProfileStatus: action.response.status,
-            }
-
-        case 'SIGNUP_SUCCESS':
-            return {
-                ...state,
-                registerData: action.response.data,
-                authMessage: action.response.message,
-                status: action.response.status
-            }
-
-        case 'CREATE_USER_SUCCESS':
-            return {
-                ...state,
-                registerData: action.response.data,
-                authMessage: action.response.message,
-                status: action.response.status
-            }
-
-        case "SIGNUP_ERROR":
-            return {
-                ...state,
-                registerData: action.response.data,
-                authMessage: action.response.message,
-                status: action.response.status
-            }
-
-        case "CREATE_USER_ERROR":
-            return {
-                ...state,
-                registerData: action.response.data,
-                authMessage: action.response.message,
-                status: action.response.status
-            }
-
         case 'LOGIN_SUCCESS':
+            console.log("Login Success")
             return {
                 ...state,
-                authMessage: action.response.message,
-                status: action.response.status,
-                loginData: action.response.data[0],
+                authMessage: "Login successful",
+                authCode: 200
             }
 
         case 'LOGIN_ERROR':
+            console.log("Login Error")
             return {
                 ...state,
-                authMessage: action.response.message,
-                status: action.response.status
+                authMessage: "Login Failed",
+                authCode: 501
             }
+
 
         case 'SIGNOUT_SUCCESS':
             return state;

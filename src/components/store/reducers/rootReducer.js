@@ -5,9 +5,11 @@ import itemsReducer from './itemsReducer';
 import employeeReducer from './employeeReducer';
 import roleReducer from './roleReducers';
 import { firestoreReducer } from 'redux-firestore';
+import { firebaseReducer } from 'react-redux-firebase'
 
 const rootReducer = combineReducers({
   firestore: firestoreReducer,
+  firebase: firebaseReducer,
   auth: authReducer,
   project: projectReducer,
   item: itemsReducer,
